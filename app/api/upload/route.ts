@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
 const MAX_DIMENSION = 1200
@@ -102,12 +100,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ url: publicUrl, storage: 'r2' })
     }
 
-    // Fallback: local filesystem (dev / before R2 is configured)
-    const localFilename = filename.replace('products/', '')
-    const uploadDir = join(process.cwd(), 'public', 'uploads')
-    await mkdir(uploadDir, { recursive: true })
-    await writeFile(join(uploadDir, localFilename), resized)
-    return NextResponse.json({ url: `/uploads/${localFilename}`, storage: 'local' })
+    // R2 not configured — return error (filesystem not available on edge runtime)
+    return NextResponse.json(
+      { error: 'Storage not configured. Please set R2 environment variables.' },
+      { status: 503 }
+    )
   } catch (e) {
     console.error('Upload error:', e)
     return NextResponse.json({ error: 'Upload failed' }, { status: 500 })

@@ -15,9 +15,11 @@ const nextConfig: NextConfig = {
     REACTUS_BASE_URL: process.env.REACTUS_BASE_URL ?? '',
   },
   serverExternalPackages: [],
-  allowedDevOrigins: [
-    "**.*.*",
-  ],
+  allowedDevOrigins: ["**.*.*"],
+  // Required for Cloudflare Workers build
+  experimental: {
+    // postgres.js needs this for CF Workers edge runtime
+  },
 };
 
 export default nextConfig;
