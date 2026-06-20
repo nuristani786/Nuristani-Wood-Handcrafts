@@ -12,7 +12,8 @@
     "db:studio": "drizzle-kit studio",
     "build:worker": "opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare build && wrangler dev",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts",
+    "build:pages": "opennextjs-cloudflare build && cp .open-next/worker.js .open-next/_worker.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
