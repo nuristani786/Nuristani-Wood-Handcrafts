@@ -1,48 +1,86 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { AgentationGuard } from "@/components/AgentationGuard";
-import { HappySeedsWatermark } from "@/components/HappySeedsWatermark";
-import "./globals.css";
-import jsonMetadata from "../metadata.json";
+import type { Metadata, Viewport } from 'next'
+import {
+  Noto_Nastaliq_Urdu,
+  Vazirmatn,
+  Playfair_Display,
+  Cormorant_Garamond,
+} from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import { AgentationGuard } from '@/components/AgentationGuard'
+import { HappySeedsWatermark } from '@/components/HappySeedsWatermark'
+import { LangProvider } from '@/lib/lang-context'
+import jsonMetadata from '../metadata.json'
+import './globals.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const notoNastaliq = Noto_Nastaliq_Urdu({
+  variable: '--font-nastaliq',
+  subsets: ['arabic'],
+  weight: ['400', '600', '700'],
+  display: 'swap',
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const vazirmatn = Vazirmatn({
+  variable: '--font-vazirmatn',
+  subsets: ['arabic'],
+  weight: ['300', '400', '500'],
+  display: 'swap',
+})
 
-export const metadata: Metadata = jsonMetadata;
+const playfair = Playfair_Display({
+  variable: '--font-playfair',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+})
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const cormorant = Cormorant_Garamond({
+  variable: '--font-cormorant',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+})
+
+export const metadata: Metadata = jsonMetadata as Metadata
+
+export const viewport: Viewport = {
+  themeColor: '#1d140d',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="fa" dir="rtl">
       <head>
-        {process.env.NODE_ENV === "production" && (
-          <Script
-            async
-            src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}
-            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
-          />
-        )}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${notoNastaliq.variable} ${vazirmatn.variable} ${playfair.variable} ${cormorant.variable} antialiased`}
+        style={{ backgroundColor: '#1d140d', color: '#f1e9da' }}
       >
-        {children}
+        <LangProvider>
+          {children}
+        </LangProvider>
         <HappySeedsWatermark />
         <AgentationGuard />
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').catch(function() {});
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
-  );
+  )
 }

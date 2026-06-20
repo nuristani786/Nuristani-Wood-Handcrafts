@@ -1,5 +1,43 @@
 {
-  "title": "HappySeeds",
-  "description": "The future of building is here. HappySeeds uses an agentic layer to bridge the gap between intent and code. High-fidelity UI, zero friction. Grow what you feel today.",
-  "keywords": [ "HappySeeds", "VibeCoding", "AI Agents", "Software Engineering", "SaaS Builder", "UI-First Development" ]
+  "title": "نورستانی",
+  "description": "صنایع دستی چوبی نورستانی — هنر دست‌ساز از چوب گردو و سدر توسط استادکاران نورستان افغانستان. Handcrafted walnut and cedar wood artisanship from Nuristan, Afghanistan.",
+  "keywords": [
+    "صنایع دستی نورستانی",
+    "صنایع دستی چوبی افغانستان",
+    "چوب گردو نورستان",
+    "Nuristani Wood Handcrafts",
+    "Afghan Wooden Crafts",
+    "Handmade Walnut Bowl",
+    "Nuristan Artisans",
+    "صنعتگران نورستانی",
+    "Handmade Wood Afghanistan",
+    "wooden jewelry box",
+    "carved wood panel"
+  ],
+  "alternates": {
+    "canonical": "https://nuristaniwood.happyseeds.ai"
+  },
+  "icons": {
+    "icon": "/favicon.ico",
+    "apple": "/icons/icon-192.png"
+  },
+  "manifest": "/manifest.json",
+  "appleWebApp": {
+    "capable": true,
+    "statusBarStyle": "black-translucent",
+    "title": "نورستانی"
+  },
+  "openGraph": {
+    "title": "نورستانی — صنایع دستی چوبی",
+    "description": "صنایع دستی چوبی نورستانی — هنر دست‌ساز از چوب گردو و سدر توسط استادکاران نورستان افغانستان.",
+    "url": "https://nuristaniwood.happyseeds.ai",
+    "siteName": "Nuristani Wood Handcrafts",
+    "locale": "fa_AF",
+    "type": "website"
+  },
+  "twitter": {
+    "card": "summary",
+    "title": "نورستانی — صنایع دستی چوبی",
+    "description": "صنایع دستی چوبی نورستانی — هنر دست‌ساز از چوب گردو و سدر توسط استادکاران نورستان افغانستان."
+  }
 }
